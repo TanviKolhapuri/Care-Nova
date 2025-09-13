@@ -9,6 +9,8 @@ export interface User {
 export interface Doctor {
   _id: string
   userId: User
+  name: string
+  email: string
   specialization: string
   qualifications: string
   experience: number
@@ -21,6 +23,7 @@ export interface Doctor {
   phone: string
   consultationFee: number
 }
+
 
 export interface Appointment {
   _id: string

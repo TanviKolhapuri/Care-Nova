@@ -17,7 +17,6 @@ export default function AdminDashboard() {
     doctors,
     patients,
     user,
-    loading,
     updateAppointmentStatus,
     addDoctor,
     updateDoctor,
@@ -53,18 +52,11 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="appointments">
-            <AppointmentsTab 
-              appointments={appointments}
-              onUpdateStatus={updateAppointmentStatus}
-            />
+            <AppointmentsTab/>
           </TabsContent>
 
           <TabsContent value="doctors">
-            <DoctorsTab 
-              doctors={doctors}
-              onAddDoctor={addDoctor}
-              onUpdateDoctor={updateDoctor}
-            />
+            <DoctorsTab/>
           </TabsContent>
 
           <TabsContent value="create-appointment">

@@ -33,11 +33,13 @@ export function DoctorsTab() {
   }
 
   const handleUpdateDoctor = async (doctorId: string, doctorData: Partial<Doctor>) => {
-    setDoctors((prev) =>
-      prev.map((doc) => (doc.userId === doctorId ? { ...doc, ...doctorData } : doc))
+  setDoctors((prev) =>
+    prev.map((doc) =>
+      doc.userId._id === doctorId ? { ...doc, ...doctorData } : doc
     )
-    await fetchDoctors()
-  }
+  )
+  await fetchDoctors()
+}
 
   return (
     <div className="space-y-6">
@@ -56,7 +58,7 @@ export function DoctorsTab() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {doctors.map((doctor) => (
-          <Card key={doctor.userId}>
+          <Card key={doctor.userId._id}>
             <CardHeader>
               <div className="flex justify-between items-start">
                 <div>
@@ -70,7 +72,7 @@ export function DoctorsTab() {
                       <Edit className="h-4 w-4" />
                     </Button>
                   }
-                  onSuccess={(data) => handleUpdateDoctor(doctor.userId, data)}
+                  onSuccess={(data) => handleUpdateDoctor(doctor.userId._id, data)}
                 />
               </div>
             </CardHeader>
