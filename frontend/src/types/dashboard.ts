@@ -24,6 +24,7 @@ export interface Doctor {
 
 export interface Appointment {
   _id: string
+  patientName?: string
   patientId: User
   doctorId: Doctor
   date: string
