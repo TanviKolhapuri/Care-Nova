@@ -61,6 +61,7 @@ export function AppointmentsTab() {
       setAppointments(prev =>
         prev.map(app => app._id === appointmentId ? { ...app, status } : app)
       )
+      console.log(data)
     } catch (err: any) {
       console.error(err.message)
       alert(err.message)

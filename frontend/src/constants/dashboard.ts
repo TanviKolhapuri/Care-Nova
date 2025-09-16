@@ -9,6 +9,7 @@ export const MOCK_PATIENTS: User[] = [
 export const MOCK_DOCTORS: Doctor[] = [
   {
     _id: "d1",
+    name: "Dr. Sarah Wilson",
     userId: { _id: "u1", name: "Dr. Sarah Wilson", email: "sarah@carenova.com", role: "doctor", createdAt: "2024-01-01" },
     specialization: "Cardiology",
     qualifications: "MD, FACC",
@@ -24,6 +25,7 @@ export const MOCK_DOCTORS: Doctor[] = [
   },
   {
     _id: "d2",
+    name: "Dr. Michael Brown",
     userId: { _id: "u2", name: "Dr. Michael Brown", email: "michael@carenova.com", role: "doctor", createdAt: "2024-01-01" },
     specialization: "Pediatrics",
     qualifications: "MD, FAAP",
@@ -42,6 +44,7 @@ export const MOCK_APPOINTMENTS: Appointment[] = [
   {
     _id: "1",
     patientId: MOCK_PATIENTS[0],
+    patientName: MOCK_PATIENTS[0].name,  
     doctorId: MOCK_DOCTORS[0],
     date: "2024-01-20",
     timeSlot: "10:00 AM",
@@ -53,6 +56,7 @@ export const MOCK_APPOINTMENTS: Appointment[] = [
     _id: "2",
     patientId: MOCK_PATIENTS[1],
     doctorId: MOCK_DOCTORS[1],
+     patientName: MOCK_PATIENTS[1].name,  
     date: "2024-01-21",
     timeSlot: "02:00 PM",
     reason: "Child vaccination",

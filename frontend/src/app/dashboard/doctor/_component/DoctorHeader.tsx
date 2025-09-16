@@ -6,6 +6,7 @@ interface DoctorHeaderProps {
   user: User | null
   onLogout: () => void
 }
+
 export function DoctorHeader({ user, onLogout }: DoctorHeaderProps) {
   return (
     <header className="bg-white shadow-sm border-b">

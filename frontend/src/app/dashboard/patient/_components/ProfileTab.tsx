@@ -1,17 +1,40 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, CheckCircle, User, Phone, MapPin, Heart, Shield } from "lucide-react";
-import { GENDER_OPTIONS, RELATIONSHIP_OPTIONS } from "@/constants/patient-dashboard";
+import {
+  Loader2,
+  CheckCircle,
+  User,
+  Phone,
+  MapPin,
+  Heart,
+  Shield,
+} from "lucide-react";
+import {
+  GENDER_OPTIONS,
+  RELATIONSHIP_OPTIONS,
+} from "@/constants/patient-dashboard";
 import { calculateAge } from "@/utils/patient-dashboard";
 
 export function ProfileTab() {
- const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -25,7 +48,7 @@ export function ProfileTab() {
     address: "",
     emergencyContact: { name: "", phone: "", relationship: "" },
     insuranceInfo: { provider: "", policyNumber: "" },
-    esiInfo: { esiNumber: "" }
+    esiInfo: { esiNumber: "" },
   });
 
   // Fetch profile details from backend
@@ -33,19 +56,22 @@ export function ProfileTab() {
     const fetchProfile = async () => {
       try {
         const storedUser = localStorage.getItem("user");
-        let userObj = {};
+        let userObj: { name?: string; email?: string } = {};
         if (storedUser) {
           userObj = JSON.parse(storedUser);
         }
 
         const token = localStorage.getItem("token");
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/patient/profile`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token || ""}`
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/patient/profile`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token || ""}`,
+            },
           }
-        });
+        );
 
         if (!res.ok) throw new Error("Failed to fetch patient details");
 
@@ -62,15 +88,15 @@ export function ProfileTab() {
           emergencyContact: {
             name: data.patient?.emergencyContact?.name || "",
             phone: data.patient?.emergencyContact?.phone || "",
-            relationship: data.patient?.emergencyContact?.relationship || ""
+            relationship: data.patient?.emergencyContact?.relationship || "",
           },
           insuranceInfo: {
             provider: data.patient?.insuranceInfo?.provider || "",
-            policyNumber: data.patient?.insuranceInfo?.policyNumber || ""
+            policyNumber: data.patient?.insuranceInfo?.policyNumber || "",
           },
           esiInfo: {
-            esiNumber: data.patient?.esiInfo?.esiNumber || ""
-          }
+            esiNumber: data.patient?.esiInfo?.esiNumber || "",
+          },
         }));
       } catch (error) {
         console.error(error);
@@ -82,26 +108,28 @@ export function ProfileTab() {
     fetchProfile();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
 
     if (name.startsWith("emergencyContact.")) {
       const key = name.split(".")[1];
       setFormData((prev) => ({
         ...prev,
-        emergencyContact: { ...prev.emergencyContact, [key]: value }
+        emergencyContact: { ...prev.emergencyContact, [key]: value },
       }));
     } else if (name.startsWith("insuranceInfo.")) {
       const key = name.split(".")[1];
       setFormData((prev) => ({
         ...prev,
-        insuranceInfo: { ...prev.insuranceInfo, [key]: value }
+        insuranceInfo: { ...prev.insuranceInfo, [key]: value },
       }));
     } else if (name.startsWith("esiInfo.")) {
       const key = name.split(".")[1];
       setFormData((prev) => ({
         ...prev,
-        esiInfo: { ...prev.esiInfo, [key]: value }
+        esiInfo: { ...prev.esiInfo, [key]: value },
       }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
@@ -114,22 +142,25 @@ export function ProfileTab() {
 
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/patient/details`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token || ""}`
-        },
-        body: JSON.stringify({
-          dob: formData.dob,
-          gender: formData.gender,
-          phone: formData.phone,
-          address: formData.address,
-          emergencyContact: formData.emergencyContact,
-          insuranceInfo: formData.insuranceInfo,
-          esiInfo: formData.esiInfo
-        })
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/patient/details`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token || ""}`,
+          },
+          body: JSON.stringify({
+            dob: formData.dob,
+            gender: formData.gender,
+            phone: formData.phone,
+            address: formData.address,
+            emergencyContact: formData.emergencyContact,
+            insuranceInfo: formData.insuranceInfo,
+            esiInfo: formData.esiInfo,
+          }),
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to update profile");
 
@@ -155,7 +186,10 @@ export function ProfileTab() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">My Profile</h2>
-        <Button onClick={() => setIsEditing(!isEditing)} variant={isEditing ? "outline" : "default"}>
+        <Button
+          onClick={() => setIsEditing(!isEditing)}
+          variant={isEditing ? "outline" : "default"}
+        >
           {isEditing ? "Cancel" : "Edit Profile"}
         </Button>
       </div>
@@ -163,7 +197,9 @@ export function ProfileTab() {
       {updateSuccess && (
         <Alert className="border-green-200 bg-green-50">
           <CheckCircle className="h-4 w-4 text-green-600" />
-          <AlertDescription className="text-green-800">Profile updated successfully!</AlertDescription>
+          <AlertDescription className="text-green-800">
+            Profile updated successfully!
+          </AlertDescription>
         </Alert>
       )}
 
@@ -184,7 +220,12 @@ export function ProfileTab() {
               </div>
               <div className="space-y-2">
                 <Label>Email</Label>
-                <Input value={formData.email} type="email" disabled className="bg-gray-50" />
+                <Input
+                  value={formData.email}
+                  type="email"
+                  disabled
+                  className="bg-gray-50"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="dob">Date of Birth</Label>
@@ -198,7 +239,9 @@ export function ProfileTab() {
                   className={!isEditing ? "bg-gray-50" : ""}
                 />
                 {!isEditing && formData.dob && (
-                  <p className="text-xs text-gray-500">Age: {calculateAge(formData.dob)} years</p>
+                  <p className="text-xs text-gray-500">
+                    Age: {calculateAge(formData.dob)} years
+                  </p>
                 )}
               </div>
               <div className="space-y-2">
@@ -206,7 +249,9 @@ export function ProfileTab() {
                 <Select
                   name="gender"
                   value={formData.gender}
-                  onValueChange={(val) => setFormData((prev) => ({ ...prev, gender: val }))}
+                  onValueChange={(val) =>
+                    setFormData((prev) => ({ ...prev, gender: val }))
+                  }
                   disabled={!isEditing}
                 >
                   <SelectTrigger className={!isEditing ? "bg-gray-50" : ""}>
@@ -267,7 +312,9 @@ export function ProfileTab() {
               <CardTitle className="flex items-center gap-2">
                 <Heart className="h-5 w-5" /> Emergency Contact
               </CardTitle>
-              <CardDescription>Person to contact in case of emergency</CardDescription>
+              <CardDescription>
+                Person to contact in case of emergency
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
@@ -298,7 +345,10 @@ export function ProfileTab() {
                   onValueChange={(val) =>
                     setFormData((prev) => ({
                       ...prev,
-                      emergencyContact: { ...prev.emergencyContact, relationship: val }
+                      emergencyContact: {
+                        ...prev.emergencyContact,
+                        relationship: val,
+                      },
                     }))
                   }
                   disabled={!isEditing}
@@ -363,7 +413,11 @@ export function ProfileTab() {
 
         {isEditing && (
           <div className="flex justify-end space-x-3">
-            <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsEditing(false)}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={loading}>

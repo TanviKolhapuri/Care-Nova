@@ -22,16 +22,17 @@ export function DoctorFormDialog({ doctor, onSuccess, trigger }: DoctorFormDialo
   const isEditing = !!doctor
 
   const [formData, setFormData] = useState({
-    name: doctor?.name || "",
-    email: doctor?.email || "",
-    specialization: doctor?.specialization || "",
-    department: doctor?.department || "",
-    experience: doctor?.experience?.toString() || "",
-    phone: doctor?.phone || "",
-    consultationFee: doctor?.consultationFee?.toString() || "",
-    qualifications: doctor?.qualifications || "",
-    availability: doctor?.availability || [{ day: "", startTime: "", endTime: "" }],
-  })
+  name: doctor?.userId.name || "",
+  email: doctor?.userId.email || "",
+  specialization: doctor?.specialization || "",
+  department: doctor?.department || "",
+  experience: doctor?.experience?.toString() || "",
+  phone: doctor?.phone || "",
+  consultationFee: doctor?.consultationFee?.toString() || "",
+  qualifications: doctor?.qualifications || "",
+  availability: doctor?.availability || [{ day: "", startTime: "", endTime: "" }],
+})
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target
@@ -67,18 +68,19 @@ export function DoctorFormDialog({ doctor, onSuccess, trigger }: DoctorFormDialo
 
       const url = `${process.env.NEXT_PUBLIC_BASE_URL}/admin/adddoctordetails`
 
-      const body = {
-        ...(isEditing && { userId: doctor?.userId }), // for update
-        name: formData.name,
-        email: formData.email,
-        specialization: formData.specialization,
-        qualifications: formData.qualifications,
-        experience: Number(formData.experience),
-        department: formData.department,
-        phone: formData.phone,
-        consultationFee: Number(formData.consultationFee),
-        availability: formData.availability,
-      }
+     const body = {
+  ...(isEditing && { userId: doctor?.userId }), // for update
+  name: formData.name,
+  email: formData.email,
+  specialization: formData.specialization,
+  qualifications: formData.qualifications,
+  experience: Number(formData.experience),
+  department: formData.department,
+  phone: formData.phone,
+  consultationFee: Number(formData.consultationFee),
+  availability: formData.availability,
+}
+
 
       const response = await fetch(url, {
         method: "POST", // same endpoint for add/update

@@ -62,10 +62,6 @@ export default function DoctorDashboard() {
 
           <TabsContent value="appointments">
             <AppointmentsTab 
-              appointments={appointments}
-              onUpdateStatus={updateAppointmentStatus}
-              onCreateReport={handleCreateReport}
-              onCreateMedicalRecord={createMedicalRecord} // This now uses the function from the hook
             />
           </TabsContent>
 

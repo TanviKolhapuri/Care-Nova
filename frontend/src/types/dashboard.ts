@@ -10,7 +10,6 @@ export interface Doctor {
   _id: string
   userId: User
   name: string
-  email: string
   specialization: string
   qualifications: string
   experience: number
@@ -24,12 +23,11 @@ export interface Doctor {
   consultationFee: number
 }
 
-
 export interface Appointment {
   _id: string
-  patientName?: string
   patientId: User
   doctorId: Doctor
+  patientName:string
   date: string
   timeSlot: string
   reason: string

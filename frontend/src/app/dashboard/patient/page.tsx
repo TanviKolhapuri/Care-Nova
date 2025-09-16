@@ -53,17 +53,17 @@ export default function PatientDashboard() {
 
           <TabsContent value="appointments">
             <AppointmentsTab 
-              appointments={appointments}
-              upcomingAppointments={getUpcomingAppointments()}
-              pastAppointments={getPastAppointments()}
+              // appointments={appointments}
+              // upcomingAppointments={getUpcomingAppointments()}
+              // pastAppointments={getPastAppointments()}
             />
           </TabsContent>
 
           <TabsContent value="profile">
             <ProfileTab 
-              patient={patient}
-              loading={loading}
-              onUpdateProfile={updatePatientProfile}
+              // patient={patient}
+              // loading={loading}
+              // onUpdateProfile={updatePatientProfile}
             />
           </TabsContent>
 

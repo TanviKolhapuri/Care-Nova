@@ -52,8 +52,6 @@ export interface Patient {
 export interface Doctor {
   _id: string
   userId: User
-  name: string
-  email: string
   specialization: string
   qualifications: string
   experience: number

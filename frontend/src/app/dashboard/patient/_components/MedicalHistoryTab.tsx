@@ -9,7 +9,7 @@ import type { Patient } from "@/types/patient-dashboard"
 
 interface MedicalHistoryTabProps {
   patient: Patient | null
-  token: string // Auth token to be passed from parent or context
+
 }
 
 export function MedicalHistoryTab({ patient }: MedicalHistoryTabProps) {

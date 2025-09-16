@@ -100,9 +100,9 @@ export function AppointmentsTab() {
         <h2 className="text-2xl font-bold">My Appointments</h2>
         <div className="flex items-center space-x-3">
           <BookAppointmentDialog
-            doctors={doctors}
-            onBookAppointment={onBookAppointment}
-            loading={loading}
+            // doctors={doctors}
+            // onBookAppointment={onBookAppointment}
+            // loading={loading}
             trigger={
               <Button className="bg-blue-600 hover:bg-blue-700">
                 <Calendar className="h-4 w-4 mr-2" />
@@ -219,9 +219,9 @@ export function AppointmentsTab() {
             <h3 className="text-lg font-medium text-gray-900 mb-2">No Appointments Yet</h3>
             <p className="text-gray-500">Schedule your first appointment with our doctors</p>
             <BookAppointmentDialog
-              doctors={doctors}
-              onBookAppointment={onBookAppointment}
-              loading={loading}
+              // doctors={doctors}
+              // onBookAppointment={onBookAppointment}
+              // loading={loading}
               trigger={<Button className="mt-4">Book Appointment</Button>}
             />
           </CardContent>
